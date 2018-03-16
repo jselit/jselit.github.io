@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script>
+function newLocation(url) {
+	var query = window.location.search;
+	window.location.href= url + query;
+}
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+(function(){
+	var url1 = "support.kaazing.com";
+	var url2 = "support.disasteraware.com";
+	
+	var url3 = "kaazingsupport.zendesk.com";
+	var url4 = "disasteraware.zendesk.com";
+
+	var brand1 = '649728'; //kaazingsupport
+	var brand2 = '7707887'; //disasteraware
+	
+	var returnToParam = getParameterByName('return_to');
+	var brandId = getParameterByName('brand_id');
+	
+	if (returnToParam != null)
+	{
+		if (returnToParam.indexOf(url1) != -1) {
+			newLocation("http://kaazingsupport.zendesk.com/access/normal");
+		}
+		else if (returnToParam.indexOf(url2) != -1) {
+			newLocation("https://enterprise.disasteraware.com/enterprise/");
+		}
+		else if (returnToParam.indexOf(url3) != -1)  {
+			newLocation("http://kaazingsupport.zendesk.com/access/normal");
+		}
+		else if (returnToParam.indexOf(url4) != -1)  {
+			newLocation("https://enterprise.disasteraware.com/enterprise/");
+		}
+	}
+	
+	else if (brandId != null)
+	{
+		if (brandId.indexOf(brand1) != -1) {
+			newLocation("http://kaazingsupport.zendesk.com/access/normal");
+		}
+		else if (brandId.indexOf(brand2) != -1) {
+			newLocation("https://enterprise.disasteraware.com/enterprise/");
+		}
+	}
+	
+}());
+
+</script>
+</head>
+<body> 
+</body>
+</html>
